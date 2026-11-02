@@ -2,6 +2,7 @@ package com.pluralsight;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class Transaction {
     private LocalDate date;
@@ -10,6 +11,10 @@ public class Transaction {
     private String vendor;
     private double amount;
 
+    // folder path
+    String folder = "src/main/resources";
+
+    // class constructor
     public Transaction(LocalDate date, LocalTime time, String description, String vendor, double amount){
         this.date = date;
         this.time = time;
@@ -18,6 +23,7 @@ public class Transaction {
         this.amount = amount;
     }
 
+    // setter and getters for date, time, description, vendor, amount
     public LocalDate getDate() {
         return date;
     }
@@ -57,4 +63,14 @@ public class Transaction {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
+    // read transaction from CSV
+    static ArrayList<Transaction> readTransactions() {
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        return transactions;
+    }
+
+    // TO-DO: write transaction to CSV
+
+
 }
