@@ -56,10 +56,26 @@ public class Ledger {
                 D) Deposits
                 P) Payments
                 R) Reports
+                H) Home
                 """);
 
     }
 
+    // report options
+    static void reportOptions() {
+        System.out.println("""
+                Select Report Type:
+                1) Month To Date
+                2) Previous Month
+                3) Year To Date
+                4) Previous Year
+                5) Search by Vendor
+                0) Back
+                """);
+
+    }
+
+    // ledger loop
     static void ledgerLoop() {
 
     }
