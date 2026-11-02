@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ledger {
@@ -7,12 +8,24 @@ public class Ledger {
         // initalize scanner
         Scanner myScanner = new Scanner(System.in);
 
+        // array list for transaction
+        ArrayList<Transaction> transactions = Transaction.readTransactions();
+
+        // Header
+        System.out.println("Tai's Ledger!");
+
+        // loops for home and ledger
+        homeScreenLoop();
+        ledgerLoop();
+
         // user input
         System.out.println("Enter deposit information(date|time|description|vendor|amount): ");
         String input = myScanner.nextLine().trim();
 
         homeScreen();
         ledger();
+
+        myScanner.close();
     }
 
 
@@ -27,6 +40,14 @@ public class Ledger {
                 """);
     }
 
+    static void homeScreenLoop() {
+        boolean run = true;
+
+        while(run){
+
+        }
+    }
+
     // display ledger menu options
     static void ledger() {
         System.out.println("""
@@ -36,6 +57,10 @@ public class Ledger {
                 P) Payments
                 R) Reports
                 """);
+
+    }
+
+    static void ledgerLoop() {
 
     }
 }
