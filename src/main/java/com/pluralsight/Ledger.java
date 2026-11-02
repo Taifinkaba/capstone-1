@@ -15,7 +15,7 @@ public class Ledger {
         System.out.println("Tai's Ledger!");
 
         // loops for home and ledger
-        homeScreenLoop();
+        homeScreenLoop(myScanner, transactions);
         ledgerLoop();
 
         // user input
@@ -40,10 +40,34 @@ public class Ledger {
                 """);
     }
 
-    static void homeScreenLoop() {
+    static void homeScreenLoop(Scanner myScanner, ArrayList<Transaction> transactions) {
         boolean run = true;
 
         while(run){
+            // show home screen options
+            homeScreen();
+
+            // user input
+            System.out.println("Enter your choice: ");
+            String input = myScanner.nextLine().trim().toUpperCase();
+
+            // switch case depending on user input
+            switch (input){
+                case "D" -> {
+                    System.out.println("Deposit");
+                }
+                case "P" -> {
+                    System.out.println("Make Payment(Debit)");
+                }
+                case "L" -> {
+                    System.out.println("Ledger");
+                }
+                case "X" -> {
+                    System.out.println("Exit");
+                }
+                default -> System.out.println("Invalid option, try again!");
+
+            }
 
         }
     }
