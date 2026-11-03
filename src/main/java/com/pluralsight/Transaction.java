@@ -69,12 +69,15 @@ public class Transaction {
         ArrayList<Transaction> transactions = new ArrayList<>();
 
         // folder path
-        String folder = "src/main/resources";
+        String folder = "src/main/resources/";
 
         try{
             // reader for file and buffered
             FileReader fileReader = new FileReader(folder + "transactions.csv");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            // skip the header
+            bufferedReader.readLine();
 
             String input;
 
