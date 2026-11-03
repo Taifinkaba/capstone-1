@@ -16,14 +16,6 @@ public class Ledger {
 
         // loops for home and ledger
         homeScreenLoop(myScanner, transactions);
-        ledgerLoop(myScanner, transactions);
-
-        // user input
-        System.out.println("Enter deposit information(date|time|description|vendor|amount): ");
-        String input = myScanner.nextLine().trim();
-
-        homeScreen();
-        ledger();
 
         myScanner.close();
     }
@@ -87,20 +79,6 @@ public class Ledger {
 
     }
 
-    // report options
-    static void reportOptions() {
-        System.out.println("""
-                Select Report Type:
-                1) Month To Date
-                2) Previous Month
-                3) Year To Date
-                4) Previous Year
-                5) Search by Vendor
-                0) Back
-                """);
-
-    }
-
     // ledger loop
     static void ledgerLoop(Scanner myScanner, ArrayList<Transaction> transactions) {
         boolean run = true;
@@ -127,10 +105,67 @@ public class Ledger {
                 case "R" -> {
                     System.out.println("Reports");
                     // need another method for options 0-5
-                    ledgerLoop(myScanner, transactions);
+                    reportsLoop(myScanner, transactions);
                 }
                 case "H" -> {
                     System.out.println("Home");
+                    run = false;
+                }
+                default -> System.out.println("Invalid option, try again!");
+
+            }
+
+        }
+    }
+
+    // report options
+    static void reportOptions() {
+        System.out.println("""
+                Select Report Type:
+                1) Month To Date
+                2) Previous Month
+                3) Year To Date
+                4) Previous Year
+                5) Search by Vendor
+                0) Back
+                """);
+
+    }
+
+    // ledger loop
+    static void reportsLoop(Scanner myScanner, ArrayList<Transaction> transactions) {
+        boolean run = true;
+
+        while(run){
+            // show home screen options
+            ledger();
+
+            // user input
+            System.out.println("Enter your choice: ");
+            String input = myScanner.nextLine().trim();
+
+            // switch case depending on user input
+            switch (input){
+                case "1" -> {
+                    System.out.println("Month To Date");
+                }
+                case "2" -> {
+                    System.out.println("Previous Month");
+                }
+                case "3" -> {
+                    System.out.println("Year To Date");
+                }
+                case "4" -> {
+                    System.out.println("Previous Year");
+                    // need another method for options 0-5
+                    // ledgerLoop(myScanner, transactions);
+                }
+                case "5" -> {
+                    System.out.println("Search by Vendor");
+                    run = false;
+                }
+                case "0" -> {
+                    System.out.println("Back");
                     run = false;
                 }
                 default -> System.out.println("Invalid option, try again!");
