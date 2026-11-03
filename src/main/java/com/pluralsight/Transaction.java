@@ -1,5 +1,8 @@
 package com.pluralsight;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -10,9 +13,6 @@ public class Transaction {
     private String description;
     private String vendor;
     private double amount;
-
-    // folder path
-    String folder = "src/main/resources";
 
     // class constructor
     public Transaction(LocalDate date, LocalTime time, String description, String vendor, double amount){
@@ -67,6 +67,43 @@ public class Transaction {
     // read transaction from CSV
     static ArrayList<Transaction> readTransactions() {
         ArrayList<Transaction> transactions = new ArrayList<>();
+
+        // folder path
+        String folder = "src/main/resources";
+
+        try{
+            // reader for file and buffered
+            FileReader fileReader = new FileReader(folder + "transactions.csv");
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String input;
+
+            while((input = bufferedReader.readLine()) != null){
+                // skip empty line
+                if(input.trim().equals("")) continue;
+
+                String[] tokens = input.split("\\|");
+
+                // seperate each part
+                LocalDate date = LocalDate.parse(tokens[0].trim());
+                LocalTime time = LocalTime.parse(tokens[1].trim());
+                String description = tokens[2].trim();
+                String vendor = tokens[3].trim();
+                double amount = Double.parseDouble(tokens[4].trim());
+
+                // create transaction
+                Transaction t = new Transaction(date, time, description, vendor, amount);
+
+                // add to list
+                transactions.add(t);
+            }
+
+            bufferedReader.close();
+        } catch (IOException e) {
+            System.out.println("Error reading transaction, try again!");
+            e.printStackTrace();
+        }
+
         return transactions;
     }
 
