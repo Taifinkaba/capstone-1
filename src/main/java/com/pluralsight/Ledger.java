@@ -16,7 +16,7 @@ public class Ledger {
 
         // loops for home and ledger
         homeScreenLoop(myScanner, transactions);
-        ledgerLoop();
+        ledgerLoop(myScanner, transactions);
 
         // user input
         System.out.println("Enter deposit information(date|time|description|vendor|amount): ");
@@ -61,9 +61,11 @@ public class Ledger {
                 }
                 case "L" -> {
                     System.out.println("Ledger");
+                    ledgerLoop(myScanner, transactions);
                 }
                 case "X" -> {
                     System.out.println("Exit");
+                    run = false;
                 }
                 default -> System.out.println("Invalid option, try again!");
 
@@ -100,7 +102,41 @@ public class Ledger {
     }
 
     // ledger loop
-    static void ledgerLoop() {
+    static void ledgerLoop(Scanner myScanner, ArrayList<Transaction> transactions) {
+        boolean run = true;
 
+        while(run){
+            // show home screen options
+            ledger();
+
+            // user input
+            System.out.println("Enter your choice: ");
+            String input = myScanner.nextLine().trim().toUpperCase();
+
+            // switch case depending on user input
+            switch (input){
+                case "A" -> {
+                    System.out.println("All");
+                }
+                case "D" -> {
+                    System.out.println("Deposit");
+                }
+                case "P" -> {
+                    System.out.println("Payment");
+                }
+                case "R" -> {
+                    System.out.println("Reports");
+                    // need another method for options 0-5
+                    ledgerLoop(myScanner, transactions);
+                }
+                case "H" -> {
+                    System.out.println("Home");
+                    run = false;
+                }
+                default -> System.out.println("Invalid option, try again!");
+
+            }
+
+        }
     }
 }
