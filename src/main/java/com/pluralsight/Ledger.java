@@ -138,7 +138,7 @@ public class Ledger {
 
         while(run){
             // show home screen options
-            ledger();
+            reportOptions();
 
             // user input
             System.out.println("Enter your choice: ");
@@ -157,12 +157,9 @@ public class Ledger {
                 }
                 case "4" -> {
                     System.out.println("Previous Year");
-                    // need another method for options 0-5
-                    // ledgerLoop(myScanner, transactions);
                 }
                 case "5" -> {
                     System.out.println("Search by Vendor");
-                    run = false;
                 }
                 case "0" -> {
                     System.out.println("Back");
