@@ -94,7 +94,7 @@ public class Ledger {
             // switch case depending on user input
             switch (input){
                 case "A" -> {
-                    System.out.println("All");
+                    displayTransactions(transactions);
                 }
                 case "D" -> {
                     System.out.println("Deposit");
@@ -170,5 +170,19 @@ public class Ledger {
             }
 
         }
+    }
+
+    static void displayTransactions(ArrayList<Transaction> transactions) {
+        // base case
+        if(transactions.isEmpty()){
+            System.out.println("Not found, try again!");
+            return;
+        }
+
+        // for each transaction we have on file print it
+        for(Transaction t : transactions){
+            System.out.printf("%s | %s | %s | %s | $%.2f%n", t.getDate(), t.getTime(), t.getDescription(), t.getVendor(), t.getAmount());
+        }
+
     }
 }
