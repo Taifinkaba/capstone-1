@@ -97,10 +97,10 @@ public class Ledger {
                     displayTransactions(transactions);
                 }
                 case "D" -> {
-                    System.out.println("Deposit");
+                    displayDeposits(transactions);
                 }
                 case "P" -> {
-                    System.out.println("Payment");
+                    displayPayments(transactions);
                 }
                 case "R" -> {
                     System.out.println("Reports");
@@ -172,6 +172,7 @@ public class Ledger {
         }
     }
 
+    // show unfiltered transaction(ALL)
     static void displayTransactions(ArrayList<Transaction> transactions) {
         // base case
         if(transactions.isEmpty()){
@@ -185,4 +186,36 @@ public class Ledger {
         }
 
     }
+
+    // show depositing money(DEPOSIT)
+    static void displayDeposits(ArrayList<Transaction> transactions) {
+        ArrayList<Transaction> deposits = new ArrayList<>();
+
+        for(Transaction t : transactions){
+            // can not deposit negative numbers
+            if(t.getAmount() > 0) deposits.add(t);
+        }
+
+        displayTransactions((deposits));
+    }
+
+    // show payments made(PAYMENT)
+    static void displayPayments(ArrayList<Transaction> transactions) {
+        ArrayList<Transaction> payments = new ArrayList<>();
+
+        for(Transaction t : transactions){
+            // payment means money going out
+            if(t.getAmount() < 0) payments.add(t);
+        }
+
+        displayTransactions((payments));
+    }
+
+
+    // show report on user(REPORTS)
+
+
+    // take user back to homepage(HOME)
+
+
 }
