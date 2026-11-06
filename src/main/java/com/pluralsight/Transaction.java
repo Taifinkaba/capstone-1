@@ -1,10 +1,9 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Transaction {
@@ -111,6 +110,31 @@ public class Transaction {
     }
 
     // TO-DO: write transaction to CSV
+    void writeTransaction() {
+        String folder = "src/main/resources/";
+
+        try {
+            // writer for file and buffered if file exist then append(true)
+            FileWriter fileWriter = new FileWriter(folder + "transactions.csv", true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            // date and time formatter
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+            // seperate parts
+            bufferedWriter.write(date.format(dateFormat) + "|" + time.format(timeFormat) + "|" + description + "|" + vendor + "|" + String.format("%.2f", amount));
+
+            bufferedWriter.newLine();
+            bufferedWriter.close();
+
+            System.out.println("Transaction Saved!");
+
+        } catch (IOException e) {
+            System.out.println("Could not write the transaction file.");
+            e.printStackTrace();
+        }
+    }
 
 
 }

@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -46,10 +48,10 @@ public class Ledger {
             // switch case depending on user input
             switch (input){
                 case "D" -> {
-                    System.out.println("Deposit");
+                    addDeposit(myScanner, transactions);
                 }
                 case "P" -> {
-                    System.out.println("Make Payment(Debit)");
+                    makePayment(myScanner, transactions);
                 }
                 case "L" -> {
                     System.out.println("Ledger");
@@ -180,8 +182,11 @@ public class Ledger {
             return;
         }
 
+        // sorting
+        ArrayList<Transaction> sortedTransactions = sortTransactions(transactions);
+
         // for each transaction we have on file print it
-        for(Transaction t : transactions){
+        for(Transaction t : sortedTransactions){
             System.out.printf("%s | %s | %s | %s | $%.2f%n", t.getDate(), t.getTime(), t.getDescription(), t.getVendor(), t.getAmount());
         }
 
@@ -217,5 +222,63 @@ public class Ledger {
 
     // take user back to homepage(HOME)
 
+    // return list sorted from new to old
+    static ArrayList<Transaction> sortTransactions(ArrayList<Transaction> transactions) {
+        ArrayList<Transaction> sortedTransactions = new ArrayList<>(transactions);
+
+        // sorting
+        for (int i = 0; i < sortedTransactions.size(); i++) {
+            for (int j = i + 1; j < sortedTransactions.size(); j++) {
+                Transaction first = sortedTransactions.get(i);
+                Transaction second = sortedTransactions.get(j);
+
+                // second = 1, tie = 0, first = -1
+                int dateComparison = second.getDate().compareTo(first.getDate());
+
+                // if second wins or if we have a tie compare time to pick whats newer
+                boolean secondIsNewer = dateComparison > 0 || (dateComparison == 0 && second.getTime().compareTo(first.getTime()) > 0);
+
+                // swap places
+                if (secondIsNewer) {
+                    sortedTransactions.set(i, second);
+                    sortedTransactions.set(j, first);
+                }
+            }
+        }
+
+        return sortedTransactions;
+
+    }
+
+    // add money
+    static void addDeposit(Scanner myScanner, ArrayList<Transaction> transactions) {
+        addTransaction(myScanner, transactions, true);
+    }
+
+    // make payment - money goes out
+    static void makePayment(Scanner myScanner, ArrayList<Transaction> transactions) {
+        addTransaction(myScanner, transactions, false);
+    }
+
+    // add transactions CRUD
+    static void addTransaction(Scanner myScanner, ArrayList<Transaction> transactions, boolean depositOrPayment) {
+        System.out.println("Enter description: ");
+        String description = myScanner.nextLine().trim();
+
+        System.out.println("Enter vendor: ");
+        String vendor = myScanner.nextLine().trim();
+
+        System.out.println("Enter amount ");
+        double amount = Double.parseDouble(myScanner.nextLine().trim());
+
+        if(!depositOrPayment) amount = -amount;
+
+        Transaction transaction = new Transaction(LocalDate.now(), LocalTime.now(), description, vendor, amount);
+
+        transaction.writeTransaction();
+        transactions.add(transaction);
+
+
+    }
 
 }
