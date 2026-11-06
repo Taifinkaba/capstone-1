@@ -149,16 +149,16 @@ public class Ledger {
             // switch case depending on user input
             switch (input){
                 case "1" -> {
-                    System.out.println("Month To Date");
+                    showMonthToDate(transactions);
                 }
                 case "2" -> {
-                    System.out.println("Previous Month");
+                    showPreviousMonth(transactions);
                 }
                 case "3" -> {
-                    System.out.println("Year To Date");
+                    showYearToDate(transactions);
                 }
                 case "4" -> {
-                    System.out.println("Previous Year");
+                    showPreviousYear(transactions);
                 }
                 case "5" -> {
                     searchByVendor(myScanner, transactions);
@@ -215,12 +215,6 @@ public class Ledger {
 
         displayTransactions((payments));
     }
-
-
-    // show report on user(REPORTS)
-
-
-    // take user back to homepage(HOME)
 
     // return list sorted from new to old
     static ArrayList<Transaction> sortTransactions(ArrayList<Transaction> transactions) {
@@ -282,9 +276,79 @@ public class Ledger {
     }
 
     // show month to date
+    static void showMonthToDate(ArrayList<Transaction> transactions) {
+        // get todays date
+        LocalDate today = LocalDate.now();
+
+        // get this months date starting at the first date
+        LocalDate start = today.withDayOfMonth(1);
+
+        //go through a loop from start date to now
+        displayDateRange(transactions, start, today);
+
+    }
+
     // show previous month
+    static void showPreviousMonth(ArrayList<Transaction> transactions) {
+        // current date
+        LocalDate today = LocalDate.now();
+
+        // first day of this month
+        LocalDate firstDayOfCurrentMonth = today.withDayOfMonth(1);
+
+        //previous month first day
+        LocalDate start = firstDayOfCurrentMonth.minusMonths(1);
+
+        // previous month last day
+        LocalDate end = firstDayOfCurrentMonth.minusDays(1);
+
+        displayDateRange(transactions, start, end);
+    }
+
     // show year to date
+    static void showYearToDate(ArrayList<Transaction> transactions) {
+        // get todays date
+        LocalDate today = LocalDate.now();
+
+        // get this years date starting at the first date
+        LocalDate start = today.withDayOfYear(1);
+
+        //go through a loop from start date to now
+        displayDateRange(transactions, start, today);
+    }
+
     // show previous year
+    static void showPreviousYear(ArrayList<Transaction> transactions) {
+        // get todays date
+        LocalDate today = LocalDate.now();
+
+        // first day of this year
+        LocalDate firstDayOfCurrentYear = today.withDayOfYear(1);
+
+        // 1 year before today
+        LocalDate start = firstDayOfCurrentYear.minusYears(1);
+
+        // day before on that year
+        LocalDate end = firstDayOfCurrentYear.minusDays(1);
+
+        displayDateRange(transactions, start, end);
+    }
+
+    // display date range by filter
+    static void displayDateRange(ArrayList<Transaction> transactions, LocalDate start, LocalDate end) {
+        ArrayList<Transaction> results = new ArrayList<>();
+
+        for( Transaction t : transactions){
+            LocalDate transactionDate = t.getDate();
+
+            if(!transactionDate.isBefore(start) && !transactionDate.isAfter(end)) results.add(t);
+
+        }
+
+        displayTransactions(results);
+
+    }
+
     // search by vendor
     static void searchByVendor(Scanner myScanner, ArrayList<Transaction> transactions) {
         System.out.println("Enter vendor name: ");
