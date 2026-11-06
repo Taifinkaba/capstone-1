@@ -161,7 +161,7 @@ public class Ledger {
                     System.out.println("Previous Year");
                 }
                 case "5" -> {
-                    System.out.println("Search by Vendor");
+                    searchByVendor(myScanner, transactions);
                 }
                 case "0" -> {
                     System.out.println("Back");
@@ -278,6 +278,25 @@ public class Ledger {
         transaction.writeTransaction();
         transactions.add(transaction);
 
+
+    }
+
+    // show month to date
+    // show previous month
+    // show year to date
+    // show previous year
+    // search by vendor
+    static void searchByVendor(Scanner myScanner, ArrayList<Transaction> transactions) {
+        System.out.println("Enter vendor name: ");
+        String vendor = myScanner.nextLine().trim();
+
+        ArrayList<Transaction> results = new ArrayList<>();
+
+        for(Transaction t : transactions){
+            if(t.getVendor().equals(vendor)) results.add(t);
+        }
+
+        displayTransactions(results);
 
     }
 
