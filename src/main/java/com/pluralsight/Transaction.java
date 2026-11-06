@@ -109,7 +109,7 @@ public class Transaction {
         return transactions;
     }
 
-    // TO-DO: write transaction to CSV
+    // write transaction to CSV
     void writeTransaction() {
         String folder = "src/main/resources/";
 
