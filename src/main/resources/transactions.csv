@@ -1,4 +1,14 @@
 date|time|description|vendor|amount
 2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
-2023-04-15|11:15:00|Invoice 1001 paid|Joe|1500.002026-11-06|03:09:23|first day last year|test1|10.00
+2023-04-15|11:15:00|Invoice 1001 paid|Joe|1500.00|2026-11-06|03:09:23|first day last year|test1|10.00
 2026-11-06|03:10:06|payment time first day last year|test2|-5.00
+2026-11-06|08:49:26|i was hungry|Halal Cart|-10.00
+2026-11-06|10:49:42|food again|taco truck|-25.00
+2026-11-06|10:50:11|work|CLI|1000.00
+2026-11-06|10:50:31|grocery|key food|-100.00
+2026-11-06|10:51:01|new fan|99c store|-40.00
+2026-11-06|10:51:26|sister did shopping|sister|-25.00
+
+2026-11-06|11:00:35|check|CLI|1000.00
+2026-11-06|11:00:50|food|Key food|-200.00
+2026-11-06|11:01:08|food|chinese spot|-60.00

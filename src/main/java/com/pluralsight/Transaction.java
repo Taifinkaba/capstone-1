@@ -122,10 +122,11 @@ public class Transaction {
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
 
+            bufferedWriter.newLine();
+
             // seperate parts
             bufferedWriter.write(date.format(dateFormat) + "|" + time.format(timeFormat) + "|" + description + "|" + vendor + "|" + String.format("%.2f", amount));
 
-            bufferedWriter.newLine();
             bufferedWriter.close();
 
             System.out.println("Transaction Saved!");
